@@ -96,8 +96,91 @@ const buildSharp = (sharpPath) => {
   }
 };
 
+// Find better-sqlite3
+const findBetterSqlite3 = () => {
+  const nodeModulesPath = path.join(__dirname, '..', 'node_modules');
+  
+  const possiblePaths = [
+    path.join(nodeModulesPath, 'better-sqlite3'),
+    path.join(nodeModulesPath, '.pnpm', 'better-sqlite3@8.6.0', 'node_modules', 'better-sqlite3'),
+  ];
+
+  for (const sqlitePath of possiblePaths) {
+    if (fs.existsSync(sqlitePath)) {
+      return sqlitePath;
+    }
+  }
+
+  const searchInDir = (dir, depth = 0) => {
+    if (depth > 3) return null;
+    
+    try {
+      const entries = fs.readdirSync(dir, { withFileTypes: true });
+      for (const entry of entries) {
+        if (entry.isDirectory() && entry.name === 'better-sqlite3') {
+          const sqlitePath = path.join(dir, entry.name);
+          if (fs.existsSync(path.join(sqlitePath, 'package.json'))) {
+            return sqlitePath;
+          }
+        }
+        if (entry.isDirectory() && entry.name.startsWith('better-sqlite3@')) {
+          const sqlitePath = path.join(dir, entry.name, 'node_modules', 'better-sqlite3');
+          if (fs.existsSync(sqlitePath)) {
+            return sqlitePath;
+          }
+        }
+      }
+    } catch (err) {
+      // Ignore errors
+    }
+  };
+
+  return searchInDir(nodeModulesPath);
+};
+
+// Check if better-sqlite3 binary exists
+const sqliteBinaryExists = (sqlitePath) => {
+  const binaryPath = path.join(sqlitePath, 'build', 'Release', 'better_sqlite3.node');
+  if (fs.existsSync(binaryPath)) {
+    return true;
+  }
+  
+  const buildPath = path.join(sqlitePath, 'build');
+  if (fs.existsSync(buildPath)) {
+    try {
+      const buildEntries = fs.readdirSync(buildPath, { recursive: true });
+      return buildEntries.some(entry => entry.includes('better_sqlite3') && entry.endsWith('.node'));
+    } catch (err) {
+      // Ignore
+    }
+  }
+  
+  return false;
+};
+
+// Build better-sqlite3
+const buildBetterSqlite3 = (sqlitePath) => {
+  try {
+    console.log(`📦 Building better-sqlite3 at ${sqlitePath}`);
+    
+    if (fs.existsSync(path.join(sqlitePath, 'package.json'))) {
+      execSync('npm run install', {
+        cwd: sqlitePath,
+        stdio: 'inherit',
+        env: { ...process.env }
+      });
+      console.log('✅ better-sqlite3 built successfully');
+      return true;
+    }
+  } catch (error) {
+    console.warn('⚠️  Could not build better-sqlite3 automatically:', error.message);
+    return false;
+  }
+};
+
 // Main execution
 try {
+  // Build sharp
   const sharpPath = findSharp();
   
   if (sharpPath) {
@@ -108,6 +191,19 @@ try {
     }
   } else {
     console.log('⚠️  sharp not found in node_modules, skipping build');
+  }
+
+  // Build better-sqlite3
+  const sqlitePath = findBetterSqlite3();
+  
+  if (sqlitePath) {
+    if (sqliteBinaryExists(sqlitePath)) {
+      console.log('✅ better-sqlite3 binary already exists, skipping build');
+    } else {
+      buildBetterSqlite3(sqlitePath);
+    }
+  } else {
+    console.log('⚠️  better-sqlite3 not found in node_modules, skipping build');
   }
 } catch (error) {
   console.warn('⚠️  Postinstall script warning:', error.message);
