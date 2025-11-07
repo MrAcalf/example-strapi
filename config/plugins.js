@@ -1,4 +1,19 @@
-module.exports = ({ env }) => ({
+module.exports = ({ env }) => {
+  // Get and validate DeepL auth key - must be a non-empty string
+  const deeplAuthKeyRaw = env('DEEPL_AUTH_KEY');
+  let deeplAuthKey = null;
+  if (deeplAuthKeyRaw && typeof deeplAuthKeyRaw === 'string') {
+    // Trim and remove surrounding quotes if present
+    const trimmed = deeplAuthKeyRaw.trim();
+    const unquoted = trimmed.startsWith('"') && trimmed.endsWith('"') 
+      ? trimmed.slice(1, -1) 
+      : trimmed.startsWith("'") && trimmed.endsWith("'")
+      ? trimmed.slice(1, -1)
+      : trimmed;
+    deeplAuthKey = unquoted !== '' ? unquoted : null;
+  }
+  
+  const plugins = {
     upload: {
         config: {
           provider: "strapi-provider-cloudflare-r2",
@@ -33,4 +48,37 @@ module.exports = ({ env }) => ({
           },
         },
       },
-});
+  };
+
+  // Configure translate plugin - use dummy provider if DeepL auth key is not provided
+  plugins.translate = {
+    enabled: !!deeplAuthKey,
+    config: {
+      // Use dummy provider when auth key is missing to prevent initialization errors
+      provider: deeplAuthKey ? 'deepl' : 'dummy',
+      providerOptions: deeplAuthKey ? {
+        // DeepL API authentication key
+        authKey: deeplAuthKey,
+      } : {},
+      // Which field types are translated (default string, text, richtext, components and dynamiczones)
+      // Either string or object with type and format
+      // Possible formats: plain, markdown, html, jsonb (default plain)
+      translatedFieldTypes: [
+        'string',
+        { type: 'blocks', format: 'jsonb' },
+        { type: 'text', format: 'plain' },
+        { type: 'richtext', format: 'markdown' },
+        'component',
+        'dynamiczone',
+      ],
+      // If relations should be translated (default true)
+      translateRelations: true,
+      // ignore updates for certain content types (default [], i.e. no content types are ignored)
+      ignoreUpdatedContentTypes: ['api::category.category'],
+      // wether to regenerate uids when batch updating (default false)
+      regenerateUids: true
+    },
+  };
+
+  return plugins;
+};

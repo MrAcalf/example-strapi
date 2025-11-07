@@ -1,0 +1,283 @@
+{
+  "Auth": {
+    "form": {
+      "welcome": {
+        "title": "Bem-vindo ao sistema",
+        "subtitle": "Faça login para continuar"
+      },
+      "email": {
+        "label": "E-mail",
+        "placeholder": "exemplo@email.com"
+      },
+      "password": {
+        "label": "Senha",
+        "placeholder": "Digite sua senha"
+      },
+      "button": {
+        "login": "Entrar",
+        "login.processing": "Entrando..."
+      },
+      "error": {
+        "email.provide": "Por favor, forneça seu e-mail",
+        "password.provide": "Por favor, forneça sua senha",
+        "invalid": "E-mail ou senha inválidos"
+      }
+    }
+  },
+  "app": {
+    "components": {
+      "LeftMenu": {
+        "navbrand": {
+          "title": "Painel Admin",
+          "workplace": "Strapi"
+        }
+      }
+    }
+  },
+  "global": {
+    "content-manager": "Gerenciador de Conteúdo",
+    "media-library": "Biblioteca de Mídia",
+    "settings": "Configurações",
+    "prompt": {
+      "unsaved": "Você tem alterações não salvas, tem certeza que deseja sair?"
+    },
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "delete": "Excluir",
+    "edit": "Editar",
+    "create": "Criar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "reset": "Redefinir",
+    "apply": "Aplicar",
+    "back": "Voltar",
+    "next": "Próximo",
+    "previous": "Anterior",
+    "submit": "Enviar",
+    "publish": "Publicar",
+    "unpublish": "Despublicar",
+    "save.and.publish": "Salvar e publicar",
+    "save.and.publish.success": "Publicado com sucesso",
+    "save.success": "Salvo com sucesso",
+    "delete.success": "Excluído com sucesso",
+    "error": "Ocorreu um erro",
+    "success": "Sucesso",
+    "loading": "Carregando...",
+    "no.content": "Nenhum conteúdo encontrado",
+    "actions": "Ações",
+    "select": "Selecionar",
+    "select.all": "Selecionar todos",
+    "deselect.all": "Desselecionar todos",
+    "bulk.actions": "Ações em massa",
+    "confirm": "Confirmar",
+    "close": "Fechar"
+  },
+  "content-manager": {
+    "containers": {
+      "ListPage": {
+        "displayedFields": "Campos exibidos",
+        "search": {
+          "placeholder": "Buscar..."
+        },
+        "table": {
+          "headers": {
+            "name": "Nome",
+            "type": "Tipo",
+            "created": "Criado",
+            "updated": "Atualizado",
+            "status": "Status"
+          }
+        },
+        "empty": {
+          "title": "Nenhum conteúdo encontrado",
+          "description": "Comece criando seu primeiro conteúdo"
+        }
+      },
+      "Edit": {
+        "pluginHeader": {
+          "title": {
+            "new": "Criar uma entrada",
+            "edit": "Editar entrada"
+          }
+        },
+        "reset": "Cancelar",
+        "submit": "Salvar",
+        "submit.and.publish": "Salvar e publicar"
+      }
+    },
+    "components": {
+      "Search": {
+        "placeholder": "Buscar..."
+      },
+      "FilterOptions": {
+        "apply": "Aplicar",
+        "clear": "Limpar"
+      }
+    }
+  },
+  "content-type-builder": {
+    "menu": {
+      "section": "Tipos de Conteúdo",
+      "single": "Tipos Únicos",
+      "collection": "Tipos de Coleção"
+    },
+    "form": {
+      "attribute": {
+        "item": {
+          "base": {
+            "settings": {
+              "name": {
+                "label": "Nome",
+                "description": "Nome do atributo"
+              },
+              "type": {
+                "label": "Tipo"
+              }
+            }
+          },
+          "custom-fields": "Campos personalizados",
+          "requiredField": "Campo obrigatório",
+          "uniqueField": "Campo único"
+        }
+      }
+    }
+  },
+  "media-library": {
+    "components": {
+      "MediaLibraryInput": {
+        "add": "Adicionar mídia",
+        "change": "Alterar mídia"
+      },
+      "Input": {
+        "placeholder": "Buscar...",
+        "upload": "Enviar arquivos"
+      }
+    },
+    "form": {
+      "input": {
+        "label": "Biblioteca de Mídia",
+        "description": "Gerencie seus arquivos de mídia"
+      }
+    }
+  },
+  "settings": {
+    "application": {
+      "title": "Aplicação",
+      "customization": {
+        "title": "Personalização"
+      }
+    },
+    "users": {
+      "title": "Usuários",
+      "list": {
+        "title": "Lista de usuários"
+      }
+    },
+    "roles": {
+      "title": "Funções",
+      "list": {
+        "title": "Lista de funções"
+      }
+    },
+    "permissions": {
+      "title": "Permissões"
+    }
+  },
+  "users-permissions": {
+    "menu": {
+      "section": "Usuários e Permissões",
+      "users": "Usuários",
+      "roles": "Funções",
+      "emailTemplates": "Modelos de E-mail",
+      "advancedSettings": "Configurações Avançadas"
+    },
+    "users": {
+      "list": {
+        "title": "Lista de usuários",
+        "button": "Adicionar novo usuário"
+      },
+      "form": {
+        "active": {
+          "label": "Ativo"
+        },
+        "email": {
+          "label": "E-mail"
+        },
+        "username": {
+          "label": "Nome de usuário"
+        },
+        "password": {
+          "label": "Senha"
+        },
+        "confirmPassword": {
+          "label": "Confirmar senha"
+        }
+      }
+    },
+    "roles": {
+      "list": {
+        "title": "Lista de funções",
+        "button": "Adicionar nova função"
+      }
+    }
+  },
+  "notification": {
+    "success": {
+      "saved": "Salvo com sucesso",
+      "published": "Publicado com sucesso",
+      "deleted": "Excluído com sucesso",
+      "created": "Criado com sucesso",
+      "updated": "Atualizado com sucesso"
+    },
+    "error": "Ocorreu um erro",
+    "error.validation": "Erro de validação",
+    "error.network": "Erro de rede",
+    "warning": "Aviso",
+    "info": "Informação"
+  },
+  "form": {
+    "attribute": {
+      "item": {
+        "custom-fields": "Campos personalizados",
+        "requiredField": "Campo obrigatório",
+        "uniqueField": "Campo único"
+      }
+    },
+    "button": {
+      "add.field": "Adicionar campo",
+      "add.component": "Adicionar componente",
+      "add.entry": "Adicionar entrada"
+    }
+  },
+  "popUpWarning": {
+    "bodyMessage": {
+      "contentType": {
+        "delete": "Tem certeza que deseja excluir este tipo de conteúdo?"
+      }
+    },
+    "button": {
+      "confirm": "Confirmar",
+      "cancel": "Cancelar"
+    }
+  },
+  "upload": {
+    "form": {
+      "input": {
+        "label": "Arquivos",
+        "placeholder": "Nenhum arquivo selecionado",
+        "button": "Selecionar arquivo"
+      }
+    },
+    "modal": {
+      "title": "Enviar arquivos",
+      "subtitle": "Arraste e solte ou clique para fazer upload"
+    }
+  },
+  "i18n": {
+    "plugin": {
+      "name": "Internacionalização",
+      "description": "Gerencie múltiplos idiomas para seu conteúdo"
+    }
+  }
+}
+
